@@ -1,5 +1,5 @@
 
 
-sleep 10
+sleep 5
 fcitx &
 goldendict &

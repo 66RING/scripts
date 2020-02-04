@@ -1,2 +1,2 @@
 
-feh --recursive --randomize --bg-fil /usr/ring/Pictures/wallpapers/wallpapers
+feh --recursive --randomize --bg-fil ~/Pictures/wallpapers

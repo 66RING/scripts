@@ -35,10 +35,11 @@ get_duration() {
 
 }
 
-KEY=""
-CITY=""
+KEY="714885ec723588618ce415c6d6668c5f"
+CITY="LongZhou"
 UNITS="metric"
 SYMBOL="°"
+NEXTTIME="3"
 
 API="https://api.openweathermap.org/data/2.5"
 
@@ -50,7 +51,7 @@ if [ -n "$CITY" ]; then
     fi
 
     current=$(curl -sf "$API/weather?appid=$KEY&$CITY_PARAM&units=$UNITS")
-    forecast=$(curl -sf "$API/forecast?appid=$KEY&$CITY_PARAM&units=$UNITS&cnt=1")
+    forecast=$(curl -sf "$API/forecast?appid=$KEY&$CITY_PARAM&units=$UNITS&cnt=$NEXTTIME")
 else
     location=$(curl -sf https://location.services.mozilla.com/v1/geolocate?key=geoclue)
 
@@ -59,7 +60,7 @@ else
         location_lon="$(echo "$location" | jq '.location.lng')"
 
         current=$(curl -sf "$API/weather?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS")
-        forecast=$(curl -sf "$API/forecast?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS&cnt=1")
+        forecast=$(curl -sf "$API/forecast?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS&cnt=$NEXTTIME")
     fi
 fi
 
@@ -67,8 +68,8 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     current_temp=$(echo "$current" | jq ".main.temp" | cut -d "." -f 1)
     current_icon=$(echo "$current" | jq -r ".weather[0].icon")
 
-    forecast_temp=$(echo "$forecast" | jq ".list[].main.temp" | cut -d "." -f 1)
-    forecast_icon=$(echo "$forecast" | jq -r ".list[].weather[0].icon")
+    forecast_temp=$(echo "$forecast" | jq ".list[$NEXTTIME-1].main.temp" | cut -d "." -f 1)
+    forecast_icon=$(echo "$forecast" | jq -r ".list[$NEXTTIME-1].weather[0].icon")
 
 
     if [ "$current_temp" -gt "$forecast_temp" ]; then
@@ -80,17 +81,17 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     fi
 
 
-    sun_rise=$(echo "$current" | jq ".sys.sunrise")
-    sun_set=$(echo "$current" | jq ".sys.sunset")
-    now=$(date +%s)
+    #sun_rise=$(echo "$current" | jq ".sys.sunrise")
+    #sun_set=$(echo "$current" | jq ".sys.sunset")
+    #now=$(date +%s)
 
-    if [ "$sun_rise" -gt "$now" ]; then
-        daytime=" $(get_duration "$((sun_rise-now))")"
-    elif [ "$sun_set" -gt "$now" ]; then
-        daytime=" $(get_duration "$((sun_set-now))")"
-    else
-        daytime=" $(get_duration "$((sun_rise-now))")"
-    fi
+    #if [ "$sun_rise" -gt "$now" ]; then
+    #    daytime=" $(get_duration "$((sun_rise-now))")"
+    #elif [ "$sun_set" -gt "$now" ]; then
+    #    daytime=" $(get_duration "$((sun_set-now))")"
+    #else
+    #    daytime=" $(get_duration "$((sun_rise-now))")"
+    #fi
 
-    echo "$(get_icon "$current_icon") $current_temp$SYMBOL  $trend  $(get_icon "$forecast_icon") $forecast_temp$SYMBOL   $daytime"
+    echo "$(get_icon "$current_icon") $current_temp$SYMBOL  $trend  $(get_icon "$forecast_icon") $forecast_temp$SYMBOL   "
 fi

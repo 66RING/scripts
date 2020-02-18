@@ -35,11 +35,14 @@ get_duration() {
 
 }
 
+#714885ec723588618ce415c6d6668c5f
+#b6907d289e10d714a6e88b30761fae22
 KEY="714885ec723588618ce415c6d6668c5f"
-CITY="LongZhou"
+CITY="Longzhou"
 UNITS="metric"
 SYMBOL="°"
-NEXTTIME="3"
+NEXTTIME="0"
+# forecast = (NEXTTIME+1)*3
 
 API="https://api.openweathermap.org/data/2.5"
 
@@ -50,8 +53,9 @@ if [ -n "$CITY" ]; then
         CITY_PARAM="q=$CITY"
     fi
 
+
     current=$(curl -sf "$API/weather?appid=$KEY&$CITY_PARAM&units=$UNITS")
-    forecast=$(curl -sf "$API/forecast?appid=$KEY&$CITY_PARAM&units=$UNITS&cnt=$NEXTTIME")
+    forecast=$(curl -sf "$API/forecast?appid=$KEY&$CITY_PARAM&units=$UNITS")
 else
     location=$(curl -sf https://location.services.mozilla.com/v1/geolocate?key=geoclue)
 
@@ -60,7 +64,7 @@ else
         location_lon="$(echo "$location" | jq '.location.lng')"
 
         current=$(curl -sf "$API/weather?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS")
-        forecast=$(curl -sf "$API/forecast?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS&cnt=$NEXTTIME")
+        forecast=$(curl -sf "$API/forecast?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS")
     fi
 fi
 
@@ -68,8 +72,8 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     current_temp=$(echo "$current" | jq ".main.temp" | cut -d "." -f 1)
     current_icon=$(echo "$current" | jq -r ".weather[0].icon")
 
-    forecast_temp=$(echo "$forecast" | jq ".list[$NEXTTIME-1].main.temp" | cut -d "." -f 1)
-    forecast_icon=$(echo "$forecast" | jq -r ".list[$NEXTTIME-1].weather[0].icon")
+    forecast_temp=$(echo "$forecast" | jq ".list[$NEXTTIME].main.temp" | cut -d "." -f 1)
+    forecast_icon=$(echo "$forecast" | jq -r ".list[$NEXTTIME].weather[0].icon")
 
 
     if [ "$current_temp" -gt "$forecast_temp" ]; then

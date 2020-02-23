@@ -36,7 +36,7 @@ get_duration() {
 }
 
 #714885ec723588618ce415c6d6668c5f
-#b6907d289e10d714a6e88b30761fae22
+#62628c16e6247d2c1caf0cb398a3dffa
 KEY="714885ec723588618ce415c6d6668c5f"
 CITY="Longzhou"
 UNITS="metric"

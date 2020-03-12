@@ -1,2 +1,2 @@
 
-feh --recursive --randomize --bg-fil ~/Pictures/wallpapers
+feh --recursive --randomize --bg-fil ~/Pictures/wallpapers/macOS

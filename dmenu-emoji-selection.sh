@@ -5,7 +5,8 @@
 # Must have xsel installed to even show menu.
 #xsel -h >/dev/null || exit
 
-chosen=$(grep -v "#" ~/scripts/static/emoji | dmenu -i -l 20 -fn Inconsolata\ Nerd\ Fonts\ Complete\ Mono-25)
+chosen=$(cut -d ';' -f1 ~/scripts/static/emoji | dmenu -i -l 20 -fn monospace-25)
+
 
 [ "$chosen" != "" ] || exit
 

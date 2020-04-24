@@ -1,6 +1,7 @@
 #!/bin/sh
 
 HideBar(){
+    bspc config bottom_padding 2
     if pgrep "polybar"; then
         polybar-msg cmd hide
     fi
@@ -13,9 +14,10 @@ ShowBar(){
 }
 
 if [ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ]; then
-    # if true &&
+    HideBar
     bspc node focused.tiled -t fullscreen
 else
+    ShowBar
     bspc node focused.fullscreen -t tiled 
 fi
 

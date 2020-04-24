@@ -1,5 +1,6 @@
 #!/bin/sh
 HideBar(){
+    bspc config bottom_padding 2
     if pgrep "polybar"; then
         polybar-msg cmd hide
     fi

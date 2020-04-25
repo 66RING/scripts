@@ -1,4 +1,6 @@
-bspc config bottom_padding 2
+PADDING=$(bspc config bottom_padding)
+
+bspc config bottom_padding $PADDING
 if pgrep "polybar"; then
   polybar-msg cmd toggle
 fi

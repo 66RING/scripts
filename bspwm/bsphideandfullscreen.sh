@@ -13,11 +13,11 @@ ShowBar(){
 }
 
 if [ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ]; then
-    HideBar
+    #HideBar
     bspc node focused.tiled -t fullscreen
     /home/ring/scripts/bspwm/bsphide.sh
 else
-    ShowBar
+    #ShowBar
     bspc node focused.fullscreen -t tiled
     /home/ring/scripts/bspwm/bspunhide.sh
 fi

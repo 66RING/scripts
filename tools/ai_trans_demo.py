@@ -35,7 +35,7 @@ def main():
 
         print(items.get('translation')[0])
         if items.get('web'):
-            print('\n=== dict ===')
+            print('\n')
             for item in items.get('web'):
                 print(', '.join(item.get('value')))
 

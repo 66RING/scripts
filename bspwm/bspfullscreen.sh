@@ -15,9 +15,11 @@ ShowBar(){
 
 if [ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ]; then
     #HideBar
-    bspc node focused.tiled -t fullscreen
+    #bspc node focused.tiled -t fullscreen
+    bspc node focused -t fullscreen
 else
     #ShowBar
-    bspc node focused.fullscreen -t tiled 
+    #bspc node focused.fullscreen -t tiled 
+    bspc node focused -t tiled 
 fi
 

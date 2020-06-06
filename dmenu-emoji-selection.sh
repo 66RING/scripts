@@ -7,7 +7,7 @@
 
 
 #chosen=$(cut -d ';' -f1 ~/scripts/static/emoji | dmenu -i -l 20 -fn monospace-25)
-chosen=$(cut -d ';' -f1 ~/scripts/static/emoji | rofi -dmenu)
+chosen=$(cut -d ';' -f1 ~/scripts/static/emoji | rofi -dmenu -i)
 
 
 

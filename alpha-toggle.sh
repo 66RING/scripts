@@ -2,9 +2,8 @@
 
 result=$(ps ax|grep -v grep|grep picom)
 
-echo $result
 if [ "$result" == "" ]; then
-  eval "picom --config ~/.config/picom.conf -b"
+  eval "picom -b"
   notify-send "compositor on" &
 else
   eval "killall picom"

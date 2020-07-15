@@ -5,6 +5,6 @@ if [ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ]; then
     bspc node focused -t fullscreen
 else
     #bspc node focused.fullscreen -t tiled 
-    bspc node focused -t tiled 
+    bspc node focused -t \~fullscreen 
 fi
 

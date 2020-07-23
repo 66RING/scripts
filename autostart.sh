@@ -9,6 +9,7 @@ picom -b --experimental-backends
 wmname LG3D
 /bin/bash ~/scripts/tap-to-click.sh &
 /bin/bash ~/scripts/inverse-scroll.sh &
+xss-lock slock &
 nm-applet &
 #/bin/bash ~/scripts/run-mailsync.sh &
 ~/scripts/autostart_wait.sh &

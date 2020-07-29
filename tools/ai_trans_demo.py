@@ -13,7 +13,6 @@ def parse_page(res):
 
 def get_page_index(Str):
     URL= "https://aidemo.youdao.com/trans"
-    Strend = ''
     data = {
         "q":Str,
         "from":"AUTO",    
@@ -29,15 +28,18 @@ def main():
 
     Str = ' '.join(sys.argv[1:])
 
-    if Str != '':
-        res = get_page_index(Str)
-        items = parse_page(res)
+    if Str == '':
+        Str = sys.stdin.read().strip('\n')
 
-        print(items.get('translation')[0])
-        if items.get('web'):
-            print('\n')
-            for item in items.get('web'):
-                print(', '.join(item.get('value')))
+    res = get_page_index(Str)
+    items = parse_page(res)
+
+    print(items.get('translation')[0])
+    if items.get('web'):
+        print('\n')
+        for item in items.get('web'):
+            print(', '.join(item.get('value')))
+
 
 
 if __name__ == "__main__":

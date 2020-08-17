@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 get_icon() {
     case $1 in
@@ -38,7 +38,7 @@ get_duration() {
 #714885ec723588618ce415c6d6668c5f
 #62628c16e6247d2c1caf0cb398a3dffa
 KEY="714885ec723588618ce415c6d6668c5f"
-CITY="Longzhou"
+CITY="Xi'An"
 UNITS="metric"
 SYMBOL="°"
 NEXTTIME="0"
@@ -55,6 +55,12 @@ if [ -n "$CITY" ]; then
 
 
     current=$(curl -sf "$API/weather?appid=$KEY&$CITY_PARAM&units=$UNITS")
+
+    while [[ -z $current ]]; do
+        current=$(curl -sf "$API/weather?appid=$KEY&$CITY_PARAM&units=$UNITS")
+        sleep 3s
+    done
+
     forecast=$(curl -sf "$API/forecast?appid=$KEY&$CITY_PARAM&units=$UNITS")
 else
     location=$(curl -sf https://location.services.mozilla.com/v1/geolocate?key=geoclue)

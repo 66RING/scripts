@@ -7,6 +7,7 @@ if [ "$pids" == "" ]; then
 else
   for pid in $pids; do
   	bspc node $pid --flag hidden -f
+    bspc node $pid -m pointed
   done
 fi
 

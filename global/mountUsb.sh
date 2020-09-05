@@ -24,10 +24,10 @@ mountusb() { \
 	getmount "/mnt /media /mount /home -maxdepth 5 -type d $alreadymounted"
 	partitiontype="$(lsblk -no "fstype" "$chosen")"
 	case "$partitiontype" in
-		"vfat") sudo -A mount -t vfat "$chosen" "$mp" -o rw,umask=0000;;
-		*) sudo -A mount "$chosen" "$mp"; user="$(whoami)"; ug="$(groups | awk '{print $1}')"; sudo -A chown "$user":"$ug" "$mp";;
+        "vfat") sudo -A mount -t vfat "$chosen" "$mp" -o rw,umask=0000 || echo "done";;
+        *) sudo -A mount "$chosen" "$mp"; user="$(whoami)"; ug="$(groups | awk '{print $1}')"; sudo -A chown "$user":"$ug" "$mp" || echo "done" ;;
 	esac
-	notify-send "💻 USB mounting" "$chosen mounted to $mp."
+    notify-send "💻 USB mounting" "$chosen mounted to $mp."
 	}
 
 mountandroid() { \

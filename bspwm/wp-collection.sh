@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chosen=$(ls -F /home/ring/Pictures/wallpapers | grep '/$' | tr -d '/' | rofi -dmenu -i)
+chosen=$(ls -F /home/ring/Pictures/wallpapers | grep '/$' | tr -d '/' | rofi -theme "~/.config/rofi/rofi-themes/slate_without_prompt.rasi" -dmenu -i)
 
 [ "$chosen" != "" ] || exit
 

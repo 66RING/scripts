@@ -9,7 +9,7 @@ for node in ${NODES[@]}; do
     ((INDEX++))
 done
 
-chosen=$(echo -e $choose | rofi -dmenu -i | awk '{ print $1 }')
+chosen=$(echo -e $choose | rofi -theme "~/.config/rofi/rofi-themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
 
 [ "$chosen" != "" ] || exit
 

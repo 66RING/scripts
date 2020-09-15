@@ -35,15 +35,15 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
 
         primary=$(echo "$screens" | rofi -dmenu -i -p "Select primary display:")
         secondary=$(echo "$screens" | grep -v "$primary")
-        direction=$(printf "left\\nright" | rofi -dmenu -i -p "What side of $primary should $secondary be on?")
-        xrandr --output "$primary" --auto --scale 1.0x1.0 --output "$secondary" --"$direction"-of "$primary" --auto --scale 1.0x1.0
+        direction=$(printf "left\\nright" | rofi -dmenu -i -p "Let $secondary on?")
+        xrandr --output "$primary" --primary --auto --scale 1.0x1.0 --output "$secondary" --"$direction"-of "$primary" --auto --scale 1.0x1.0
     fi
     }
 
 morescreen() { # If multi-monitor is selected and there are more than two screens.
 	primary=$(echo "$screens" | rofi -dmenu -i -p "Select primary display:")
 	secondary=$(echo "$screens" | grep -v "$primary" | rofi -dmenu -i -p "Select secondary display:")
-	direction=$(printf "left\\nright" | rofi -dmenu -i -p "What side of $primary should $secondary be on?")
+	direction=$(printf "left\\nright" | rofi -dmenu -i -p "Let $secondary on?")
 	tertiary=$(echo "$screens" | grep -v "$primary" | grep -v "$secondary" | rofi -dmenu -i -p "Select third display:")
 	xrandr --output "$primary" --auto --output "$secondary" --"$direction"-of "$primary" --auto --output "$tertiary" --"$(printf "left\\nright" | grep -v "$direction")"-of "$primary" --auto
 	}
@@ -59,8 +59,8 @@ onescreen() { # If only one output available or chosen.
 	}
 
 postrun() { # Stuff to run to clean up.
-	setbg		# Fix background if screen size/arangement has changed.
-	remaps		# Re-remap keys if keyboard added (for laptop bases)
+	# setbg		# Fix background if screen size/arangement has changed.
+	# remaps		# Re-remap keys if keyboard added (for laptop bases)
 	{ killall dunst ; setsid -f dunst ;} >/dev/null 2>&1 # Restart dunst to ensure proper location on screen
 	}
 
@@ -86,3 +86,5 @@ case "$chosen" in
 esac
 
 postrun
+
+[ -f "$HOME/.config/polybar/launch.sh" ] && eval "$HOME/.config/polybar/launch.sh &"

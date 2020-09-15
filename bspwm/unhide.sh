@@ -2,14 +2,19 @@
 
 NODES=($(bspc query -N -n .local.window.\!sticky.hidden))
 INDEX=0
-choose=""
+list=""
+
+if [ "$NODES" == "" ]; then
+    notify-send "👻 Nothing is hidden." "Enjoy your day"
+    exit
+fi
 
 for node in ${NODES[@]}; do
-    choose="$choose$INDEX $(xdotool getwindowname $node)\n"
+    list="$list$INDEX $(xdotool getwindowname $node)\n"
     ((INDEX++))
 done
 
-chosen=$(echo -e $choose | rofi -theme "~/.config/rofi/rofi-themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
+chosen=$(echo -e $list | rofi -theme "~/.config/rofi/rofi-themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
 
 [ "$chosen" != "" ] || exit
 

@@ -8,7 +8,7 @@ allconnects=$(xrandr -q | grep "connected")
 screens=$(echo "$allconnects" | awk '/ connected/ {print $1}')
 
 toDefault() { # If multi-monitor is selected and there are more than two screens.
-    xrandr --output "$(echo $screens | head -1)" --primary --auto
+    xrandr --output "$(echo $screens | head -1)" --auto
     discnt=$(echo "$allconnects" | awk '/ disconnected/ {print $1}')
     for dis in $discnt; do
         xrandr --output "$dis" --off
@@ -51,5 +51,6 @@ xrandr --output "$external" --auto --scale 1.0x1.0 \
     --output "$internal" --auto --same-as "$external" \
     --scale "$scale_x"x"$scale_y"
 
+[ -f "$HOME/.config/polybar/launch.sh" ] && eval "$HOME/.config/polybar/launch.sh &"
 
 

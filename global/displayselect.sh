@@ -4,7 +4,7 @@
 # displays and lets user select one to use. User may also select "manual
 # selection" which opens arandr.
 
-# Depandency: arandr
+# Optional Depandency: arandr
 
 twoscreen() { # If multi-monitor is selected and there are two screens.
 

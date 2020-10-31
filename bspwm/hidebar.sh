@@ -6,7 +6,7 @@ bspc config top_padding $PADDING
 bspc config right_padding $PADDING
 bspc config left_padding $PADDING
 
-if [ "$EXIST" != "" ]; then
+if [ -n "$EXIST" ]; then
   polybar-msg cmd toggle > /dev/null
 fi
 

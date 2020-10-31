@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 pids=$(xdotool search --class scratchpad)
 
-if [ "$pids" == "" ]; then
+if [ -z "$pids" ]; then
     eval "st -c scratchpad -t scratchpad -g 80x30"
     # eval "alacritty --class scratchpad,scratchpad -d 80 30"
 else

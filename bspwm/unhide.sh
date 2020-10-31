@@ -4,7 +4,7 @@ NODES=($(bspc query -N -n .local.window.\!sticky.hidden))
 INDEX=0
 list=""
 
-if [ "$NODES" == "" ]; then
+if [ -z "$NODES" ]; then
     notify-send "👻 Nothing is hidden." "Enjoy your day"
     exit
 fi
@@ -16,7 +16,7 @@ done
 
 chosen=$(echo -e $list | rofi -theme "~/.config/rofi/rofi-themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
 
-[ "$chosen" != "" ] || exit
+[ -n "$chosen" ] || exit
 
 bspc node ${NODES[$chosen]} -g hidden=off
 

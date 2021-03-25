@@ -5,7 +5,7 @@ INDEX=0
 list=""
 
 if [ -z "$NODES" ]; then
-    notify-send "👻 Nothing is hidden." "Enjoy your day"
+    notify-send "👻 Nothing is hidden." "Catch you later XD"
     exit
 fi
 

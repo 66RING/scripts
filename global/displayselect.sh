@@ -13,7 +13,7 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
     # version for the internal display
     if [ "$mirror" = "yes" ]; then
         external=$(echo "$screens" | rofi -dmenu -i -p "Optimize resolution for:")
-        internal=$(echo "$screens" | grep -v "$external")
+        internal=$(echo "$screens" | grep -vw "$external")
 
         res_external=$(xrandr --query | sed -n "/^$external/,/\+/p" | \
             tail -n 1 | awk '{print $1}')
@@ -34,7 +34,7 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
     else
 
         primary=$(echo "$screens" | rofi -dmenu -i -p "Select primary display:")
-        secondary=$(echo "$screens" | grep -v "$primary")
+        secondary=$(echo "$screens" | grep -vw "$primary")
         direction=$(printf "left\\nright" | rofi -dmenu -i -p "Let $secondary on?")
         xrandr --output "$primary" --primary --auto --scale 1.0x1.0 --output "$secondary" --"$direction"-of "$primary" --auto --scale 1.0x1.0
     fi
@@ -42,10 +42,10 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
 
 morescreen() { # If multi-monitor is selected and there are more than two screens.
 	primary=$(echo "$screens" | rofi -dmenu -i -p "Select primary display:")
-	secondary=$(echo "$screens" | grep -v "$primary" | rofi -dmenu -i -p "Select secondary display:")
+	secondary=$(echo "$screens" | grep -vw "$primary" | rofi -dmenu -i -p "Select secondary display:")
 	direction=$(printf "left\\nright" | rofi -dmenu -i -p "Let $secondary on?")
-	tertiary=$(echo "$screens" | grep -v "$primary" | grep -v "$secondary" | rofi -dmenu -i -p "Select third display:")
-	xrandr --output "$primary" --auto --output "$secondary" --"$direction"-of "$primary" --auto --output "$tertiary" --"$(printf "left\\nright" | grep -v "$direction")"-of "$primary" --auto
+	tertiary=$(echo "$screens" | grep -vw "$primary" | grep -vw "$secondary" | rofi -dmenu -i -p "Select third display:")
+	xrandr --output "$primary" --auto --output "$secondary" --"$direction"-of "$primary" --auto --output "$tertiary" --"$(printf "left\\nright" | grep -vw "$direction")"-of "$primary" --auto
 	}
 
 multimon() { # Multi-monitor handler.
@@ -55,7 +55,7 @@ multimon() { # Multi-monitor handler.
 	esac ;}
 
 onescreen() { # If only one output available or chosen.
-	xrandr --output "$1" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ')
+	xrandr --output "$1" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -vw "$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ')
 	}
 
 postrun() { # Stuff to run to clean up.

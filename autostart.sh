@@ -10,7 +10,8 @@ picom -b &
 ~/scripts/tap-to-click.sh &
 ~/scripts/inverse-scroll.sh &
 # xss-lock slock &
-xset r rate 250 30 &
+xset r rate 300 50 &
 nm-applet &
+unclutter &
 # ~/scripts/run-mailsync.sh &
 ~/scripts/autostart_wait.sh &

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# ~/scripts/dwm/dwm-status.sh &
+~/scripts/wp-autochange &
+~/scripts/alpha-toggle &
+
+unclutter &
+# dunst &
+# ~/scripts/run-mailsync.sh &
+~/scripts/autostart_wait &

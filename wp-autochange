@@ -1,5 +1,5 @@
 #!/bin/sh
 while true; do
-    /bin/bash ~/scripts/wp-change.sh
+    /bin/bash ~/scripts/wp-change
     sleep 5m
 done

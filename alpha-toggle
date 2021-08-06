@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 result=$(ps ax|grep -v grep|grep picom)
 
 if [ -z "$result" ]; then
-  # eval "picom -b --experimental-backends"
-  eval "picom -b"    # corner-radius 
+  eval "picom --config "${XDG_CONFIG_HOME:-$HOME/.config}/picom_blur.conf" -b --experimental-backends"
+  # eval "picom -b"    # corner-radius 
   bspc config border_width         0
   notify-send "compositor on" &
 else

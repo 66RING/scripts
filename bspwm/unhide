@@ -14,7 +14,7 @@ for node in ${NODES[@]}; do
     ((INDEX++))
 done
 
-chosen=$(echo -e $list | rofi -theme "~/.config/rofi/rofi-themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
+chosen=$(echo -e $list | rofi -theme "~/.config/rofi/themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
 
 [ -n "$chosen" ] || exit
 

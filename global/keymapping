@@ -1,0 +1,3 @@
+sudo -A sudo udevadm trigger
+../inverse-scroll
+../tap-to-click

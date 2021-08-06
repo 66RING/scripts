@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Get id of touchpad and the id of the field corresponding to
 # natural scrolling

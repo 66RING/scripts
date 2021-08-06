@@ -87,4 +87,4 @@ esac
 
 postrun
 
-[ -f "$HOME/.config/polybar/launch.sh" ] && eval "$HOME/.config/polybar/launch.sh &"
+[ -f "$HOME/.config/polybar/launch" ] && eval "$HOME/.config/polybar/launch &"

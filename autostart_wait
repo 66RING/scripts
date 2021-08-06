@@ -1,0 +1,7 @@
+#!/bin/sh
+
+sleep 2
+nm-applet &
+fcitx &
+flameshot &
+nutstore &

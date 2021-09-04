@@ -1,22 +1,22 @@
 #!/usr/bin/env sh
 
-NODES=($(bspc query -N -n .local.window.\!sticky.hidden))
+NODE_ID=($(bspc query -N -n .local.window.\!sticky.hidden))
 INDEX=0
-list=""
+ENTRY=()
 
-if [ -z "$NODES" ]; then
+if [ -z "$NODE_ID" ]; then
     notify-send "👻 Nothing is hidden." "Catch you later XD"
     exit
 fi
 
-for node in ${NODES[@]}; do
-    list="$list$INDEX $(xdotool getwindowname $node)\n"
-    ((INDEX++))
+for node in ${NODE_ID[@]}; do
+  ENTRY+=("$INDEX $(xdotool getwindowname $node)")
+  ((INDEX++))
 done
 
-chosen=$(echo -e $list | rofi -theme "~/.config/rofi/themes/slate_without_prompt.rasi" -dmenu -i | awk '{ print $1 }')
+chosen=$(printf '%s\n' "${ENTRY[@]}" | rofi -p "Unhide:" -dmenu -i | awk '{ print $1 }')
 
 [ -n "$chosen" ] || exit
 
-bspc node ${NODES[$chosen]} -g hidden=off
+bspc node ${NODE_ID[$chosen]} -g hidden=off
 

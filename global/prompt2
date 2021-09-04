@@ -1,6 +1,6 @@
 #!/bin/sh
 
 
-[ "$(printf "No\\nYes" | rofi -theme '~/.config/rofi/themes/slate_with_two_choice_prompt.rasi' -case-sensitive -p "$1" -dmenu  )" = "Yes" ] && $2
+[ "$(printf "No\\nYes" | rofi -case-sensitive -p "$1" -dmenu  )" = "Yes" ] && $2
 
 

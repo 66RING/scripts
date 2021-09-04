@@ -2,6 +2,6 @@
 
 sleep 2
 nm-applet &
-fcitx &
+fcitx5 -d &
 flameshot &
 nutstore &

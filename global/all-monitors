@@ -13,7 +13,7 @@ toDefault() { # If multi-monitor is selected and there are more than two screens
     for dis in $discnt; do
         xrandr --output "$dis" --off
     done
-    [ -f "$HOME/.config/polybar/launch.sh" ] && eval "$HOME/.config/polybar/launch.sh &"
+    [ -f "$HOME/.config/polybar/launch" ] && eval "$HOME/.config/polybar/launch &"
 
     notify-send "💻 Only one screen detected." "Using it in its optimal settings..."
     exit
@@ -51,6 +51,6 @@ xrandr --output "$external" --auto --scale 1.0x1.0 \
     --output "$internal" --auto --same-as "$external" \
     --scale "$scale_x"x"$scale_y"
 
-[ -f "$HOME/.config/polybar/launch.sh" ] && eval "$HOME/.config/polybar/launch.sh &"
+[ -f "$HOME/.config/polybar/launch" ] && eval "$HOME/.config/polybar/launch &"
 
 

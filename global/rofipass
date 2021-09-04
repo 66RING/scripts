@@ -1,2 +1,2 @@
 #!/bin/sh
-rofi -theme '~/.config/rofi/themes/slate_for_password.rasi' -dmenu -password -p "PASSWORD"
+rofi -dmenu -password -p "PASSWORD"

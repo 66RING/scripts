@@ -54,7 +54,7 @@ rm -rf initrd.cpio.gz
 # 制作镜像
 #
 dd if=/dev/zero of=./rootfs_tmp.img bs=1M count=16
-mkfs.ext2 rootfs_tmp.img
+mkfs.ext3 rootfs_tmp.img
 mkdir fs
 mount -o loop rootfs_tmp.img ./fs
 cp -rf $(ls | grep -v fs) ./fs

@@ -1,10 +1,13 @@
 #!/bin/sh
 
-# ~/scripts/dwm/dwm-status.sh &
-~/scripts/wp-autochange &
-~/scripts/alpha-toggle &
+# ~/.local/bin/scripts/dwm/dwm-status.sh &
+~/.local/bin/scripts/wp-autochange &
+~/.local/bin/scripts/alpha-toggle &
 
 unclutter &
 # dunst &
-# ~/scripts/run-mailsync.sh &
-~/scripts/autostart_wait &
+# ~/.local/bin/scripts/run-mailsync.sh &
+~/.local/bin/scripts/autostart_wait &
+~/.local/bin/scripts/tap-to-click.sh &
+
+

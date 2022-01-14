@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # feh --recursive --randomize --bg-fill --no-fehbg ~/Pictures/wallpapers/macOS
-feh --recursive --randomize --bg-fill --no-fehbg /home/ring/Pictures/win/Msft_Nostalgia_Landscape.jpg
+feh --recursive --randomize --bg-fill --no-fehbg /home/ring/opt/Pictures/rust/rust_logo_hot.png

@@ -9,5 +9,7 @@ unclutter &
 # ~/.local/bin/scripts/run-mailsync.sh &
 ~/.local/bin/scripts/autostart_wait &
 ~/.local/bin/scripts/tap-to-click.sh &
+pulseaudio --start --use-pid-file=true &
+
 
 

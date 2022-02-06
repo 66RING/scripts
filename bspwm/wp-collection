@@ -1,11 +1,12 @@
 #!/bin/bash
 
-chosen=$(ls -F /home/ring/Pictures/wallpapers | grep '/$' | tr -d '/' | rofi -p "Wallpapers set:" -dmenu -i)
+PIC_DIR=/home/ring/opt/Pictures
+chosen=$(ls -F $PIC_DIR | grep '/$' | tr -d '/' | rofi -p "Wallpapers set:" -dmenu -i)
 
 [ -n "$chosen" ] || exit
 
-line="feh --recursive --randomize --bg-fill --no-fehbg ~/Pictures/wallpapers/$chosen"
-script_dir="/home/ring/scripts/wp-change"
+line="feh --recursive --randomize --bg-fill --no-fehbg $PIC_DIR/$chosen"
+script_dir="$HOME/.local/bin/scripts/wp-change"
 num=$(sed -n '/^feh/=' $script_dir)
 
 sed -i "${num}c ${line}" $script_dir

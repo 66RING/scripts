@@ -1,0 +1,12 @@
+#!/bin/sh
+PADDING=$(bspc config bottom_padding)
+EXIST=$(pgrep polybar)
+
+if [ -n "$EXIST" ]; then
+  polybar-msg cmd show > /dev/null && sleep 3s && polybar-msg cmd hide
+fi
+
+bspc config bottom_padding $PADDING
+bspc config top_padding $PADDING
+bspc config right_padding $PADDING
+bspc config left_padding $PADDING

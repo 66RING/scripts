@@ -1,3 +1,4 @@
+#!/bin/sh
 PADDING=$(bspc config bottom_padding)
 EXIST=$(pgrep polybar)
 

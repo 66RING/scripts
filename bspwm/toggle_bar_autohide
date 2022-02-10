@@ -1,12 +1,12 @@
 #!/bin/sh
+[ $(pgrep -c toggle_bar_auto) -gt 1 ] && pkill -o toggle_bar_auto
 PADDING=$(bspc config bottom_padding)
 EXIST=$(pgrep polybar)
+
+# bspc config top_padding $PADDING
 
 if [ -n "$EXIST" ]; then
   polybar-msg cmd show > /dev/null && sleep 3s && polybar-msg cmd hide
 fi
 
-bspc config bottom_padding $PADDING
 bspc config top_padding $PADDING
-bspc config right_padding $PADDING
-bspc config left_padding $PADDING

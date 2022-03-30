@@ -6,7 +6,7 @@ EXIST=$(pgrep polybar)
 # bspc config top_padding $PADDING
 
 if [ -n "$EXIST" ]; then
-  polybar-msg cmd show > /dev/null && sleep 5s && polybar-msg cmd hide
+  polybar-msg cmd show > /dev/null && sleep 10s && polybar-msg cmd hide
 fi
 
 bspc config top_padding $PADDING

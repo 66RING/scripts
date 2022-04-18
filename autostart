@@ -9,7 +9,19 @@ unclutter &
 # ~/.local/bin/scripts/run-mailsync.sh &
 ~/.local/bin/scripts/autostart_wait &
 ~/.local/bin/scripts/tap-to-click.sh &
-pulseaudio --start --use-pid-file=true &
+
+## pulseaudio pulseaudio-bluetooth pulseaudio-alsa
+# pulseaudio --start --use-pid-file=true &
+
+
+# pipewire
+# dep: pipewire pipewire-alsa pipewire-media-session pipewire-pulse
+# or wireplumber
+#pipewire 2>&1 &
+dbus-launch --sh-syntax --exit-with-session; pipewire 2>&1 &
+pipewire-pulse 2>&1 &
+pipewire-media-session 2>&1 &
+
 
 
 

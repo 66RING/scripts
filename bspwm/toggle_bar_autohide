@@ -1,12 +1,23 @@
 #!/bin/sh
-[ $(pgrep -c toggle_bar_auto) -gt 1 ] && pkill -o toggle_bar_auto
+# [ $(pgrep -c __toggle_bar_autohide) -gt 1 ] && pkill -o toggle_bar_auto
+
+running_array=($(pidof __toggle_bar_autohide))
+sorted=($(sort <<<"${running_array[*]}"))
+
+# echo ${#running_array[@]} ${#sorted[@]} ${sorted[0]} 
+for(( i=1;i<${#sorted[@]};i++)) do
+  kill -9 ${sorted[i]}
+  # echo ${sorted[i]};
+done;
+
+
 PADDING=$(bspc config bottom_padding)
 EXIST=$(pgrep polybar)
 
 # bspc config top_padding $PADDING
 
 if [ -n "$EXIST" ]; then
-  polybar-msg cmd show > /dev/null && sleep 10s && polybar-msg cmd hide
+  polybar-msg cmd show > /dev/null && sleep 5s && polybar-msg cmd hide > /dev/null
 fi
 
 bspc config top_padding $PADDING

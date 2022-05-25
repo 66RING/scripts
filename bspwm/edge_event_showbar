@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# while [ 1 ]; do
+#   # Y=$(xdotool getmouselocation | sed 's/.*y:\(.*\) screen.*/\1/')
+#   # eval "$(xdotool getmouselocation --shell)"
+#   # echo $Y
+# done
+
+# xinput test 2 | while read line
+# do
+#   line="$(echo "$line" | grep "a\[1\]")"
+#   eval "$(echo $line | cut -d" " -f2,3)"
+#   if [ ${a[1]} -lt 5 ]; then
+# 	$HOME/.local/bin/scripts/bspwm/toggle_bar_autohide &
+#   fi
+# done
+
+# eval "$HOME/.local/bin/scripts/bspwm/toggle_bar_autohide&"
+xdotool behave_screen_edge --quiesce 0 top exec -- bash -c "exec -a __toggle_bar_autohide bash $HOME/.local/bin/scripts/bspwm/toggle_bar_autohide &"
+
+
+# pgrep不好用
+# pidof好用
+
+# TODO  to note
+# procee的name是一个截断的版本
+# ./aout_abcdefgh_ver27 &
+# [1] 14255                    ## this is the PID
+# $ grep Name /proc/14255/status
+# Name:   aout_abcdefgh_v
+
+
+
+# pgrep 的坑！
+# https://unix.stackexchange.com/questions/267007/pgrep-full-match-not-work-only-part-why
+
+# The problem is that by default, pgrep only searches the process name. The name is a truncated version of the entire command. You can see what the name is by looking at /proc/PID/status where PID is the process ID of the relevant process. For example:
+
+# $ ./aout_abcdefgh_ver27 &
+# [1] 14255                    ## this is the PID
+# $ grep Name /proc/14255/status
+# Name:   aout_abcdefgh_v
+# So yes, pgrep with no flags only reads the first 15 characters of the executable's name. To search the full command line used to launch it, you need the -f flag (from man pgrep):
+
+# -f, --full
+#      The pattern is normally only matched against the process name.  
+#      When -f is set, the full command line is used.
+# So, if you use -f:
+
+# $ pgrep -f aout_abcdefgh_ver27 
+# 14255
+

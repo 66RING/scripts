@@ -21,6 +21,7 @@ unclutter &
 dbus-launch --sh-syntax --exit-with-session; pipewire 2>&1 &
 pipewire-pulse 2>&1 &
 pipewire-media-session 2>&1 &
+# wireplumber 2>&1 &
 
 
 

@@ -65,10 +65,10 @@ class ChatApp(App):
 
         @room.on('SEND_GIFT')
         async def get_gift(event):
-            info = event["data"]["info"]
-            msg = info[1]
-            user = info[2][1]
-            self.income_msg("🌟%s: %s" % (user, msg))
+            data = event["data"]["data"]
+            giftname = data["giftName"]
+            user = data["uname"]
+            self.income_msg("🌟%s: %s" % (user, giftname))
 
         # sync(room.connect())
         _thread.start_new_thread(sync, (room.connect(),))
@@ -93,7 +93,7 @@ class ChatApp(App):
 
     def income_msg(self, msg):
         self.messages.messages.append(msg)
-        self.messages.messages = self.messages.messages[-self.msg_size+2:]
+        self.messages.messages = self.messages.messages[-(self.msg_size-1):]
         self.messages.update = True
 
 

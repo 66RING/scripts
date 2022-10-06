@@ -1,0 +1,7 @@
+#!/bin/sh
+wid=$(xdotool selectwindow)
+
+echo $wid > /tmp/window_unmap
+
+xdotool windowunmap $wid
+

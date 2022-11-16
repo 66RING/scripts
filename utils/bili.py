@@ -122,5 +122,5 @@ class ChatApp(App):
 
 if __name__ == "__main__":
     warnings.simplefilter('ignore', ResourceWarning)
-    ChatApp.run()
+    ChatApp().run()
 

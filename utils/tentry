@@ -1,4 +1,4 @@
 #!/bin/sh
-target=$(ls "$SCRIPTS_DIR"/utils/widgets | rofi -dmenu)
+target=$(ls "$SCRIPTS_DIR"/utils/widgets | rofi -dmenu) || exit 0
 
 exec "$SCRIPTS_DIR"/utils/widgets/"$target"

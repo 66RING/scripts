@@ -1,0 +1,14 @@
+#!/bin/sh
+
+input_file=$(rofi -p "input file" -dmenu -i) || exit 0
+
+color_erase=$(rofi -p "color to erase" -dmenu -i) || exit 0
+
+rename=$(rofi -p "rename" -dmenu -i) || exit 0
+
+output_file="$(dirname $input_file)/$rename" || exit 0
+
+# echo $input_file $color_erase $rename $output_file
+ret=$(convert $input_file -transparent "$color_erase" -fuzz 20% $output_file)
+
+notify-send "$ret"

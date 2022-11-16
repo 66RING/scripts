@@ -1,0 +1,5 @@
+#!/bin/sh
+
+target=$(ls "$SCRIPTS_DIR"/utils/docker_tools | rofi -dmenu)
+
+exec "$SCRIPTS_DIR"/utils/widgets/"$target"

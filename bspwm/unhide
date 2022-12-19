@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 
+EXCLUSIVE_ID=$(echo "obase=16; $(xdotool search --class scratchpad)" | bc)
 NODE_ID=($(bspc query -N -n .local.window.\!sticky.hidden))
+NODE_ID+=($(bspc query -N -n .local.window.sticky.hidden.above | grep -v "$EXCLUSIVE_ID"))
+NODE_ID+=($(bspc query -N -n .local.window.\!sticky.hidden.below))
 INDEX=0
 ENTRY=()
 

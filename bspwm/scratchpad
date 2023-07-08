@@ -1,11 +1,12 @@
 #!/usr/bin/bash
-pids=$(xdotool search --class scratchpad)
+pids=$(xdotool search --classname scratchpad)
 TERMINAL=${TERMINAL:-"st"}
 
 if [ -z "$pids" ]; then
   case "$TERMINAL" in
 	"st") 
-	  eval "st -c scratchpad -t scratchpad -g 160x60" ;;
+	  # eval "st -c scratchpad -t scratchpad -g 160x60" ;;
+	  eval "tabbed -c -g 1800x1400 -n \"scratchpad\" -r 2 st -w '' " ;;
 	"alacritty") 
 	  eval "alacritty --class scratchpad,scratchpad"
   esac

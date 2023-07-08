@@ -6,9 +6,9 @@ function gen_cover {
   outputfile=$2
   text=$3
   tmpblur=/tmp/tmpblur.jpg
-  convert -blur 0x80 $inputfile $tmpblur
+  convert -blur 0x30 $inputfile $tmpblur
   convert -interline-spacing 20 \
-	-pointsize 120 -gravity center \
+	-pointsize 190 -gravity center \
 	-fill '#fdf6e3' -stroke '#fdf6e3' -strokewidth 40 \
 	-annotate +0+0 "$text"\
 	-fill '#000000' -stroke '#000000' -strokewidth 0 \
@@ -16,4 +16,4 @@ function gen_cover {
 	$tmpblur $outputfile
 }
 
-gen_cover /home/ring/11.png /home/ring/12.png hello
+gen_cover "$1" "$2" "$3" 

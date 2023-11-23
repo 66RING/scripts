@@ -1,0 +1,6 @@
+#!/bin/sh
+
+flag=$(echo -e 'sticky\nprivate\nlocked\nmarked\nurgent' | rofi -i -p "change flags" -dmenu)
+mode=$(echo -e 'on\noff' | rofi -i -p "change mode" -dmenu)
+
+bspc node -g $flag=$mode

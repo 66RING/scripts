@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dunstctl $(echo -e "history-pop\nclose-all"| rofi -p "clt:" -dmenu -i)

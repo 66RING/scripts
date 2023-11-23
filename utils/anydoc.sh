@@ -17,6 +17,35 @@
 TYPE=$1
 SRC=$2
 
+while getopts 'nmt:s:c:h' opt; do
+  case "$opt" in
+    n)
+	  FLAGS+=" -N "
+      ;;
+
+    m)
+	  FLAGS+=" --webtex "
+      ;;
+
+    t)
+      TYPE="$OPTARG"
+      ;;
+
+    s)
+      SRC="$OPTARG"
+      ;;
+
+    c)
+      arg="$OPTARG"
+      ;;
+   
+    ?|h)
+      echo "Usage: $(basename $0) [-n] [-m] [-t target_type] [-s input_file]"
+      exit 1
+      ;;
+  esac
+done
+
 # 1. convert to html first for compatibility
 # 2. convert to $1 actually
 
@@ -25,22 +54,20 @@ SRC=$2
 if [ $# -gt 0 ] ;then
   case "$TYPE"
   in
-  # "pdf")
-	# pandoc --pdf-engine=xelatex \
-	# -N \
-	# -V geometry:margin=1in \
-	# -V CJKmainfont="Source Han Sans CN" \
-	# -V fontsize=17pt \
-	# -o ${SRC%.*}.pdf $SRC
-	# ;;
   *)
+	# cheat sheet
+	# -V colorlinks=true \
+	# -V linkcolor=blue \
+	# -V urlcolor=blue \
+	# -V toccolor=gray \
 	tmp="$(mktemp --suffix='.html')"
-	pandoc "$SRC" -N -t html -o "$tmp"
+	pandoc "$SRC" $FLAGS -t html -o "$tmp"
 	pandoc --pdf-engine=xelatex \
+	  -V colorlinks=true \
 	  -V geometry:margin=1in \
 	  -V CJKmainfont="Source Han Sans CN" \
 	  -V fontsize=17pt \
-	  "$tmp" -t $TYPE -o $(echo "$2" | cut -d '.' -f 1)".$TYPE"
+	  "$tmp" -t $TYPE -o $(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
 	rm "$tmp"
 	;;
   esac

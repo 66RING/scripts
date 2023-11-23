@@ -6,7 +6,7 @@ if [ -z "$pids" ]; then
   case "$TERMINAL" in
 	"st") 
 	  # eval "st -c scratchpad -t scratchpad -g 160x60" ;;
-	  eval "tabbed -c -g 1800x1400 -n \"scratchpad\" -r 2 st -w '' " ;;
+	  eval "tabbed -c -p s+1 -g 1800x1300 -n \"scratchpad\" -r 2 st -w '' " ;;
 	"alacritty") 
 	  eval "alacritty --class scratchpad,scratchpad"
   esac

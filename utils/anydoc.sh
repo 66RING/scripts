@@ -54,22 +54,32 @@ done
 if [ $# -gt 0 ] ;then
   case "$TYPE"
   in
+  "pdf")
+    # cheat sheet
+    # -V colorlinks=true \
+    # -V linkcolor=blue \
+    # -V urlcolor=blue \
+    # -V toccolor=gray \
+    pandoc --pdf-engine=xelatex \
+      -V colorlinks=true \
+      -V geometry:margin=1in \
+      -V CJKmainfont="Source Han Sans CN" \
+      -V fontsize=17pt \
+      $FLAGS \
+      "$SRC" -t $TYPE -o $(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
+    ;;
   *)
-	# cheat sheet
-	# -V colorlinks=true \
-	# -V linkcolor=blue \
-	# -V urlcolor=blue \
-	# -V toccolor=gray \
-	tmp="$(mktemp --suffix='.html')"
-	pandoc "$SRC" $FLAGS -t html -o "$tmp"
-	pandoc --pdf-engine=xelatex \
-	  -V colorlinks=true \
-	  -V geometry:margin=1in \
-	  -V CJKmainfont="Source Han Sans CN" \
-	  -V fontsize=17pt \
-	  "$tmp" -t $TYPE -o $(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
-	rm "$tmp"
-	;;
+    # cover to html first to compatible with <img> tag and other flag
+    tmp="$(mktemp --suffix='.html')"
+    pandoc "$SRC" $FLAGS -t html -o "$tmp"
+    pandoc --pdf-engine=xelatex \
+      -V colorlinks=true \
+      -V geometry:margin=1in \
+      -V CJKmainfont="Source Han Sans CN" \
+      -V fontsize=17pt \
+      "$tmp" -t $TYPE -o $(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
+    rm "$tmp"
+    ;;
   esac
 else
   echo -e "Usage:\n\tosdoc <output_type> <input_file>"

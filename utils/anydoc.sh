@@ -17,14 +17,14 @@
 TYPE=$1
 SRC=$2
 
-while getopts 'nmt:s:c:h' opt; do
+while getopts 'nmt:s:o:h' opt; do
   case "$opt" in
     n)
-	  FLAGS+=" -N "
+      FLAGS+=" -N "
       ;;
 
     m)
-	  FLAGS+=" --webtex "
+      FLAGS+=" --webtex "
       ;;
 
     t)
@@ -35,8 +35,8 @@ while getopts 'nmt:s:c:h' opt; do
       SRC="$OPTARG"
       ;;
 
-    c)
-      arg="$OPTARG"
+    o)
+      OUT_FILE="$OPTARG"
       ;;
    
     ?|h)
@@ -45,6 +45,9 @@ while getopts 'nmt:s:c:h' opt; do
       ;;
   esac
 done
+
+# if -o is not set, use default
+[ -z "$OUT_FILE" ] && OUT_FILE=$(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
 
 # 1. convert to html first for compatibility
 # 2. convert to $1 actually
@@ -66,7 +69,7 @@ if [ $# -gt 0 ] ;then
       -V CJKmainfont="Source Han Sans CN" \
       -V fontsize=17pt \
       $FLAGS \
-      "$SRC" -t $TYPE -o $(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
+      "$SRC" -t $TYPE -o $OUT_FILE
     ;;
   *)
     # cover to html first to compatible with <img> tag and other flag
@@ -77,7 +80,7 @@ if [ $# -gt 0 ] ;then
       -V geometry:margin=1in \
       -V CJKmainfont="Source Han Sans CN" \
       -V fontsize=17pt \
-      "$tmp" -t $TYPE -o $(echo "$SRC" | cut -d '.' -f 1)".$TYPE"
+      "$tmp" -t $TYPE -o $OUT_FILE
     rm "$tmp"
     ;;
   esac

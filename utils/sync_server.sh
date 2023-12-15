@@ -4,10 +4,10 @@
 
 # require rsync, fswatch
 local_repo_path=./
-remote_node_=@1
-remote_path=@2
-exclude_file=$local_repo_path/.gitignore
-exclude_pattern=(".git")
+remote_node_=$1
+remote_path=$2
+exclude_file=$local_repo_path".gitignore"
+exclude_pattern=(".git" ".gitignore")
 max_file_size=10m
 
 sync_cmd="rsync -avhz --delete --force --max-size=$max_file_size $local_repo_path"
@@ -25,7 +25,8 @@ echo $sync_cmd
 eval $sync_cmd
 
 while true; do
-  fswatch -1 $local_repo_path > /dev/null
+  echo "fswatching" $local_repo_path"**/*"
+  fswatch -1 "$local_repo_path"/* "$local_repo_path"**/* > /dev/null
   eval $sync_cmd
   sleep 1
 done

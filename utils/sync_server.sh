@@ -25,7 +25,7 @@ echo $sync_cmd
 eval $sync_cmd
 
 while true; do
-  echo "fswatching" $local_repo_path"**/*"
+  echo "fswatching" $local_repo_path"**/*" $local_repo_path"*"
   fswatch -1 "$local_repo_path"/* "$local_repo_path"**/* > /dev/null
   eval $sync_cmd
   sleep 1

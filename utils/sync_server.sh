@@ -10,7 +10,7 @@ exclude_file=$local_repo_path".gitignore"
 exclude_pattern=(".git" ".gitignore")
 max_file_size=10m
 
-sync_cmd="rsync -avhz --delete --force --max-size=$max_file_size $local_repo_path"
+sync_cmd="rsync -avhz --force --max-size=$max_file_size $local_repo_path"
 
 if [ ! -z "$exclude_file" ] && [ -f $local_repo_path/$exclude_file ]; then
     sync_cmd="$sync_cmd --exclude-from=$exclude_file"

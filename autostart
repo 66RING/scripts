@@ -5,14 +5,10 @@
 ~/.local/bin/scripts/alpha-toggle &
 
 unclutter &
-# dunst &
+dunst &
 # ~/.local/bin/scripts/run-mailsync.sh &
 ~/.local/bin/scripts/autostart_wait &
 ~/.local/bin/scripts/tap-to-click.sh &
-
-## pulseaudio pulseaudio-bluetooth pulseaudio-alsa
-# pulseaudio --start --use-pid-file=true &
-
 
 # pipewire
 # dep: pipewire pipewire-alsa pipewire-media-session pipewire-pulse
@@ -22,7 +18,6 @@ dbus-launch --sh-syntax --exit-with-session; pipewire 2>&1 &
 pipewire-pulse 2>&1 &
 # pipewire-media-session 2>&1 &
 wireplumber 2>&1 &
-
-
+dropbox &
 
 

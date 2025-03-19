@@ -2,8 +2,11 @@
 
 sleep 2
 nm-applet &
-fcitx -d &
+fcitx5 -d &
 flameshot &
-nutstore &
+# nutstore &
 cfw &  # clash for windows
+# clash-verge & # clash verge
 nextcloud &
+xrandr --output HDMI-0 --scale 1.3x1.3 && ~/.local/bin/scripts/wp-change
+

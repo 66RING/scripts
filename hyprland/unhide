@@ -1,0 +1,79 @@
+#!/usr/bin/env sh
+
+# EXCLUSIVE_ID=$(echo "obase=16; $(xdotool search --class scratchpad)" | bc)
+# NODE_ID=($(bspc query -N -n .local.window.\!sticky.hidden))
+# NODE_ID+=($(bspc query -N -n .local.window.sticky.hidden.above | grep -v "$EXCLUSIVE_ID"))
+# NODE_ID+=($(bspc query -N -n .local.window.\!sticky.hidden.below))
+# INDEX=0
+# ENTRY=()
+
+#!/bin/bash
+
+
+# 提取所有 hidden 为 0 的窗口的 ID 和 title
+# hyprctl clients | awk '
+#     # 匹配 Window 开头的行，提取窗口 ID
+#     /^Window/ {
+#         current_id = $2  # 保存当前窗口 ID（第二列）
+#         is_hidden_0 = 0  # 重置标记（默认不是 hidden:0）
+#         current_title = ""  # 重置当前标题
+#     }
+    
+#     # 匹配 hidden: 0 的行，标记当前窗口需要被提取
+#     /hidden: 0/ {
+#         is_hidden_0 = 1
+#     }
+    
+#     # 匹配 title 行，且当前窗口是 hidden:0 时，提取标题
+#     /title: / && is_hidden_0 {
+#         # 去掉 "title: " 前缀，保留后面的标题内容
+#         sub(/^title: /, "", $0)
+#         current_title = $0
+#     }
+    
+#     # 当下一个 Window 行出现前，或文件结束时，输出符合条件的结果
+#     (NR > 1 && /^Window/ || END) && is_hidden_0 {
+#         print "Window ID: " current_id
+#         print "Title: " current_title
+#         print "-------------------------"
+#     }
+# '
+
+ENTRY=$(hyprctl clients | awk -v hidden="0" '
+    /^Window/ { current_id = $2 }
+    # sub函数用于替换字符串的开头部分
+    $0 ~ "title: " { sub(/.*title: /, "", $0); title = $0 }
+    $0 ~ "hidden: " hidden { print title }
+')
+
+NODE_ID=$(hyprctl clients | awk -v hidden="0" '
+    /^Window/ { current_id = $2 }
+    # 提取title:后的内容直到末尾
+    $0 ~ "hidden: " hidden { print current_id title }
+  ')
+
+if [ -z "$NODE_ID" ]; then
+    notify-send "👻 Nothing is hidden." "Catch you later XD"
+    exit
+fi
+
+ALL_ENTRY=()
+index=0
+len=${#ENTRY[@]}
+echo "len: $len"
+for ((idx=0; idx<len; idx++)); do
+    ALL_ENTRY[index]="${ENTRY[idx]} ${NODE_ID[idx]}"
+    index=$((index + 1))
+done
+
+echo $ALL_ENTRY
+
+exit
+
+
+chosen=$(printf '%s\n' "${ENTRY[@]}" | rofi -p "Unhide:" -dmenu -i | awk '{ print $1 }')
+
+[ -n "$chosen" ] || exit
+
+bspc node ${NODE_ID[$chosen]} -g hidden=off
+
